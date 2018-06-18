@@ -1,0 +1,40 @@
+diff --git a/target/linux/ar71xx/image/tp-link.mk b/target/linux/ar71xx/image/tp-link.mk
+index b76ed02ca3..366dacbda4 100644
+--- a/target/linux/ar71xx/image/tp-link.mk
++++ b/target/linux/ar71xx/image/tp-link.mk
+@@ -475,6 +475,26 @@ define Device/tl-wr720n-v3
+     CONSOLE := ttyATH0,115200
+ endef
+ 
++define Device/tl-wr720n-v3-8m
++    $(Device/tplink-8mlzma)
++    DEVICE_TITLE := TP-LINK TL-WR720N v3
++    DEVICE_PACKAGES := kmod-usb-core kmod-usb2
++    BOARDNAME := TL-WR720N-v3
++    DEVICE_PROFILE := TLWR720
++    TPLINK_HWID := 0x07200103
++    CONSOLE := ttyATH0,115200
++endef
++
++define Device/tl-wr720n-v3-16m
++    $(Device/tplink-16mlzma)
++    DEVICE_TITLE := TP-LINK TL-WR720N v3
++    DEVICE_PACKAGES := kmod-usb-core kmod-usb2
++    BOARDNAME := TL-WR720N-v3
++    DEVICE_PROFILE := TLWR720
++    TPLINK_HWID := 0x07200103
++    CONSOLE := ttyATH0,115200
++endef
++
+ define Device/tl-wr720n-v4
+     $(Device/tplink-4mlzma)
+     DEVICE_TITLE := TP-LINK TL-WR720N v4
+@@ -484,7 +504,7 @@ define Device/tl-wr720n-v4
+     TPLINK_HWID := 0x07200104
+     CONSOLE := ttyATH0,115200
+ endef
+-TARGET_DEVICES += tl-wr703n-v1 tl-wr710n-v1 tl-wr710n-v2 tl-wr710n-v2.1 tl-wr720n-v3 tl-wr720n-v4
++TARGET_DEVICES += tl-wr703n-v1 tl-wr710n-v1 tl-wr710n-v2 tl-wr710n-v2.1 tl-wr720n-v3 tl-wr720n-v3-8m tl-wr720n-v3-16m tl-wr720n-v4
+ 
+ define Device/tl-wr740n-v1
+     $(Device/tplink-4m)
