@@ -1,0 +1,94 @@
+diff --git a/target/linux/ar71xx/image/Makefile b/target/linux/ar71xx/image/Makefile
+index 9a7acbd..a1a4916 100644
+--- a/target/linux/ar71xx/image/Makefile
++++ b/target/linux/ar71xx/image/Makefile
+@@ -484,6 +484,24 @@ define Device/tl-wr720n-v3
+     CONSOLE := ttyATH0,115200
+ endef
+ 
++# 为 TL-WR720N-v3 添加 8M 和 16M 固件
++
++define Device/tl-wr720n-v3-8m
++    $(Device/tplink-8mlzma)
++    BOARDNAME := TL-WR720N-v3
++    DEVICE_PROFILE := TLWR720
++    TPLINK_HWID := 0x07200103
++    CONSOLE := ttyATH0,115200
++endef
++
++define Device/tl-wr720n-v3-16m
++    $(Device/tplink-16mlzma)
++    BOARDNAME := TL-WR720N-v3
++    DEVICE_PROFILE := TLWR720
++    TPLINK_HWID := 0x07200103
++    CONSOLE := ttyATH0,115200
++endef
++
+ define Device/tl-wr720n-v4
+     $(Device/tplink-4mlzma)
+     BOARDNAME := TL-WR720N-v3
+@@ -491,7 +509,7 @@ define Device/tl-wr720n-v4
+     TPLINK_HWID := 0x07200104
+     CONSOLE := ttyATH0,115200
+ endef
+-TARGET_DEVICES += tl-wr703n-v1 tl-wr710n-v1 tl-wr710n-v2 tl-wr720n-v3 tl-wr720n-v4
++TARGET_DEVICES += tl-wr703n-v1 tl-wr710n-v1 tl-wr710n-v2 tl-wr720n-v3 tl-wr720n-v3-8m tl-wr720n-v3-16m tl-wr720n-v4
+ 
+ define Device/tl-wr740n-v4
+     $(Device/tplink-4mlzma)
+diff --git a/tools/firmware-utils/src/mktplinkfw.c b/tools/firmware-utils/src/mktplinkfw.c
+index 6df869d..d73ed9d 100644
+--- a/tools/firmware-utils/src/mktplinkfw.c
++++ b/tools/firmware-utils/src/mktplinkfw.c
+@@ -410,7 +410,7 @@ static struct board_info boards[] = {
+ 		.id		= "TL-WR720Nv3",
+ 		.hw_id		= HWID_TL_WR720N_V3,
+ 		.hw_rev		= 1,
+-		.layout_id	= "4Mlzma",
++		.layout_id	= "16Mlzma",
+ 	}, {
+ 		.id		= "TL-WR720Nv4",
+ 		.hw_id		= HWID_TL_WR720N_V4,
+diff --git a/wr720n.config b/wr720n.config
+new file mode 100644
+index 0000000..87d9f91
+--- /dev/null
++++ b/wr720n.config
+@@ -0,0 +1,34 @@
++# Usage
++#   cd to <buildroot_dir>
++#   cp wr720n.config .config
++#   make deconfig
++
++# TARGET settings
++CONFIG_TARGET_ar71xx=y
++CONFIG_TARGET_ar71xx_generic=y
++CONFIG_TARGET_ar71xx_generic_TLWR720=y
++
++# LuCI settings 
++CONFIG_LUCI_LANG_en=y
++CONFIG_LUCI_LANG_zh-cn=y
++CONFIG_PACKAGE_luci=y
++CONFIG_PACKAGE_luci-app-ddns=y 
++CONFIG_PACKAGE_luci-app-firewall=y
++CONFIG_PACKAGE_luci-app-qos=y
++CONFIG_PACKAGE_luci-app-upnp=y
++CONFIG_PACKAGE_luci-app-wol=y
++
++# Kernel modules
++CONFIG_PACKAGE_kmod-fs-vfat=y
++CONFIG_PACKAGE_kmod-fs-ufsd=y
++CONFIG_PACKAGE_kmod-ledtrig-usbdev=y
++CONFIG_PACKAGE_kmod-nls-cp437=y
++CONFIG_PACKAGE_kmod-nls-iso8859-1=y
++CONFIG_PACKAGE_kmod-nls-utf8=y
++CONFIG_PACKAGE_kmod-usb-ohci=y
++CONFIG_PACKAGE_kmod-usb-storage-extras=y
++
++# Other packages
++CONFIG_PACKAGE_block-mount=y
++CONFIG_PACKAGE_uboot-ar71xx-nbg460n_550n_550nh=y
++
+-- 
+2.14.1.windows.1
+

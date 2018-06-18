@@ -1,0 +1,62 @@
+diff --git a/contrib/uci/hostfiles/etc/config/system b/contrib/uci/hostfiles/etc/config/system
+index b0726b7b7..1c0d74538 100644
+--- a/contrib/uci/hostfiles/etc/config/system
++++ b/contrib/uci/hostfiles/etc/config/system
+@@ -1,3 +1,3 @@
+ config system
+ 	option hostname	OpenWrt
+-	option timezone	UTC
++	option timezone	CST-8
+diff --git a/luci.mk b/luci.mk
+index 5b32dab2f..c36221236 100644
+--- a/luci.mk
++++ b/luci.mk
+@@ -35,7 +35,7 @@ LUCI_LANG.sv=Svenska (Swedish)
+ LUCI_LANG.tr=Türkçe (Turkish)
+ LUCI_LANG.uk=украї́нська (Ukrainian)
+ LUCI_LANG.vi=Tiếng Việt (Vietnamese)
+-LUCI_LANG.zh-cn=普通话 (Chinese)
++LUCI_LANG.zh-cn=简体中文 (Chinese)
+ LUCI_LANG.zh-tw=臺灣華語 (Taiwanese)
+ 
+ # Submenu titles
+diff --git a/modules/luci-base/root/etc/config/luci b/modules/luci-base/root/etc/config/luci
+index baa3ac5d1..458cd864c 100644
+--- a/modules/luci-base/root/etc/config/luci
++++ b/modules/luci-base/root/etc/config/luci
+@@ -1,5 +1,5 @@
+ config core main
+-	option lang auto
++	option lang zh_cn
+ 	option mediaurlbase /luci-static/bootstrap
+ 	option resourcebase /luci-static/resources
+ 	
+diff --git a/modules/luci-mod-admin-full/luasrc/controller/admin/system.lua b/modules/luci-mod-admin-full/luasrc/controller/admin/system.lua
+index 4feab2841..29a3009cc 100644
+--- a/modules/luci-mod-admin-full/luasrc/controller/admin/system.lua
++++ b/modules/luci-mod-admin-full/luasrc/controller/admin/system.lua
+@@ -49,7 +49,7 @@ function action_clock_status()
+ 	end
+ 
+ 	luci.http.prepare_content("application/json")
+-	luci.http.write_json({ timestring = os.date("%c") })
++	luci.http.write_json({ timestring = os.date("%Y-%m-%d %X") })
+ end
+ 
+ function action_packages()
+diff --git a/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm b/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+index a71d2334e..d65d226d6 100644
+--- a/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
++++ b/modules/luci-mod-admin-full/luasrc/view/admin_status/index.htm
+@@ -49,7 +49,7 @@
+ 
+ 		local rv = {
+ 			uptime     = sysinfo.uptime or 0,
+-			localtime  = os.date(),
++			localtime  = os.date("%Y-%m-%d %X"),
+ 			loadavg    = sysinfo.load or { 0, 0, 0 },
+ 			memory     = meminfo,
+ 			swap       = swapinfo,
+-- 
+2.14.1.windows.1
+
