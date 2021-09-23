@@ -1,0 +1,13 @@
+CONFIG_TARGET_ath79_generic_DEVICE_dlink_dir-505=y
+CONFIG_LUCI_LANG_en=y
+CONFIG_LUCI_LANG_zh_Hans=y
+CONFIG_PACKAGE_block-mount=y
+CONFIG_PACKAGE_kmod-fs-ntfs=y
+CONFIG_PACKAGE_kmod-fs-vfat=y
+CONFIG_PACKAGE_kmod-nls-cp936=y
+CONFIG_PACKAGE_kmod-usb-storage-extras=y
+CONFIG_PACKAGE_kmod-usb-storage-uas=y
+CONFIG_PACKAGE_luci-app-ddns=y
+CONFIG_PACKAGE_luci-app-ledtrig-usbport=y
+CONFIG_PACKAGE_luci-app-upnp=y
+CONFIG_PACKAGE_luci-ssl=y
