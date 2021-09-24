@@ -14,10 +14,10 @@ index 0000000000..0a8b82141f
 +};
 diff --git a/target/linux/ath79/dts/ar9331_tplink_tl-wr720n.dtsi b/target/linux/ath79/dts/ar9331_tplink_tl-wr720n.dtsi
 new file mode 100644
-index 0000000000..721faa625c
+index 0000000000..76257d3b63
 --- /dev/null
 +++ b/target/linux/ath79/dts/ar9331_tplink_tl-wr720n.dtsi
-@@ -0,0 +1,117 @@
+@@ -0,0 +1,133 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +
 +#include "ar9331.dtsi"
@@ -40,7 +40,23 @@ index 0000000000..721faa625c
 +		reset {
 +			label = "reset";
 +			linux,code = <KEY_RESTART>;
-+			gpios = <&gpio 11 GPIO_ACTIVE_LOW>;
++			gpios = <&gpio 11 GPIO_ACTIVE_HIGH>;
++			debounce-interval = <60>;
++		};
++
++		sw1 {
++			label = "sw1";
++			linux,input-type = <EV_SW>;
++			linux,code = <BTN_0>;
++			gpios = <&gpio 18 GPIO_ACTIVE_HIGH>;
++			debounce-interval = <60>;
++		};
++
++		sw2 {
++			label = "sw2";
++			linux,input-type = <EV_SW>;
++			linux,code = <BTN_1>;
++			gpios = <&gpio 20 GPIO_ACTIVE_HIGH>;
 +			debounce-interval = <60>;
 +		};
 +	};
