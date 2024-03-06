@@ -28,6 +28,20 @@ index be21d00..87f2173 100755
  		set system.@system[-1].ttylogin='0'
  		set system.@system[-1].log_size='64'
  		set system.@system[-1].urandom_seed='0'
+diff --git a/package/kernel/linux/Makefile b/package/kernel/linux/Makefile
+index ff91760..605f6d7 100644
+--- a/package/kernel/linux/Makefile
++++ b/package/kernel/linux/Makefile
+@@ -26,7 +26,8 @@ export SHELL:=/bin/sh
+ include $(INCLUDE_DIR)/package.mk
+ 
+ ifeq ($(DUMP),)
+-  STAMP_BUILT:=$(STAMP_BUILT)_$(shell $(SCRIPT_DIR)/kconfig.pl $(LINUX_DIR)/.config | $(MKHASH) md5)
++#   STAMP_BUILT:=$(STAMP_BUILT)_$(shell $(SCRIPT_DIR)/kconfig.pl $(LINUX_DIR)/.config | $(MKHASH) md5)
++  STAMP_BUILT:=$(STAMP_BUILT)_$(shell cat $(LINUX_DIR)/.vermagic)
+   -include $(LINUX_DIR)/.config
+ endif
+ 
 diff --git a/package/kernel/mac80211/files/lib/wifi/mac80211.sh b/package/kernel/mac80211/files/lib/wifi/mac80211.sh
 index e24a2a6..1cb0123 100644
 --- a/package/kernel/mac80211/files/lib/wifi/mac80211.sh
